@@ -10,6 +10,16 @@ const client = new Client({
 
 client.connect()
   .then(()=>{
+    client.query('DROP TABLE IF EXISTS feature_product_join_table')
+      .then(()=>console.log('Product Join Table Table Dropped'))
+      .catch((error)=>console.log(error))
+  })
+  .then(()=>{
+    client.query('DROP TABLE IF EXISTS features')
+      .then(()=>console.log('Fetaures Table Dropped'))
+      .catch((error)=>console.log(error))
+  })
+  .then(()=>{
     client.query('DROP TABLE IF EXISTS related')
       .then(()=>console.log('Related Table Dropped'))
       .catch((error)=>console.log(error))
@@ -20,23 +30,13 @@ client.connect()
       .catch((error)=>console.log(error))
   })
   .then(()=>{
+    client.query('DROP TABLE IF EXISTS photos')
+      .then(()=>console.log('Photos Table Dropped'))
+      .catch((error)=>console.log(error))
+  })
+  .then(()=>{
     client.query('DROP TABLE IF EXISTS styles')
       .then(()=>console.log('Styles Table Dropped'))
-      .catch((error)=>console.log(error))
-  })
-  .then(()=>{
-    client.query('DROP TABLE IF EXISTS feature_product_join_table')
-      .then(()=>console.log('Product Join Table Table Dropped'))
-      .catch((error)=>console.log(error))
-  })
-  .then(()=>{
-    client.query('DROP TABLE IF EXISTS features')
-      .then(()=>console.log('Fetaures Table Dropped'))
-      .catch((error)=>console.log(error))
-  })
-  .then(()=> {
-    client.query('CREATE TABLE features (id INT PRIMARY KEY, feature TEXT, value TEXT)')
-    .then(()=>console.log('Features Table Created'))
       .catch((error)=>console.log(error))
   })
   .then(()=>{
@@ -45,8 +45,13 @@ client.connect()
       .catch((error)=>console.log(error))
   })
   .then(()=> {
-    client.query('CREATE TABLE product (id INT PRIMARY KEY, campus TEXT, category TEXT, created_at DATE, default_price TEXT, description TEXT, name TEXT, slogan TEXT, updated_at DATE)')
+    client.query('CREATE TABLE product (id INT PRIMARY KEY, name TEXT, slogan TEXT, description TEXT, category TEXT, default_price INT)')
     .then(()=>console.log('Product Table Created'))
+      .catch((error)=>console.log(error))
+  })
+  .then(()=> {
+    client.query('CREATE TABLE features (id INT PRIMARY KEY, product_id INT, feature TEXT, value TEXT, FOREIGN KEY (product_id) REFERENCES product(id))')
+    .then(()=>console.log('Features Table Created'))
       .catch((error)=>console.log(error))
   })
   .then(()=> {
@@ -69,13 +74,8 @@ client.connect()
     .then(()=>console.log('Related Table Created'))
       .catch((error)=>console.log(error))
   })
-  .then(()=>{
-    client.query('DROP TABLE IF EXISTS photos')
-      .then(()=>console.log('Photos Table Dropped'))
-      .catch((error)=>console.log(error))
-  })
   .then(()=> {
-    client.query('CREATE TABLE photos (id INT PRIMARY KEY, styles_id INT, thumbnail_url TEXT, url TEXT, FOREIGN KEY (styles_id) REFERENCES styles(id))')
+    client.query('CREATE TABLE photos (id INT PRIMARY KEY, styleId INT, thumbnail_url TEXT, url TEXT, FOREIGN KEY (styleId) REFERENCES styles(id))')
     .then(()=>console.log('Photos Table Created'))
       .catch((error)=>console.log(error))
       .then(()=>client.end())
