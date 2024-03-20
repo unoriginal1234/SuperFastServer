@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server-dev": "nodemon --watch server server/index.js",
-    "test": "test"
+    "test": "test",
+    "seed": "node tableSetup.js"
   },
   "repository": {
     "type": "git",

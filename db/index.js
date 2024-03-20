@@ -21,7 +21,6 @@ client.connect()
       } else {
         console.log('Query result:', result.rows);
       }
-
       // Close the connection when done
       client.end()
         .then(() => {
