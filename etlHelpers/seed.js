@@ -3,8 +3,9 @@ const path = require('path');
 const { Pool, Client } = require('pg');
 const copyFrom = require('pg-copy-streams').from;
 
-var inputFile = path.join(__dirname, './data/imported/product.csv');
-var table = 'product';
+var inputFile = path.join(__dirname, '../data/imported/photos.csv');
+//var inputFile = path.join(__dirname, './data/cleaned/cleanStyles.csv');
+var table = 'photos';
 // Connect to the database
 
 const client = new Client({

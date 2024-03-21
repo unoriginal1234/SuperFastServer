@@ -10,6 +10,10 @@ const client = new Client({
 
 client.connect()
   .then(()=>{
+    client.query('DROP TABLE IF EXISTS cart')
+      .then(()=>console.log('Cart Table Dropped'))
+  })
+  .then(()=>{
     client.query('DROP TABLE IF EXISTS feature_product_join_table')
       .then(()=>console.log('Product Join Table Table Dropped'))
       .catch((error)=>console.log(error))
@@ -60,23 +64,28 @@ client.connect()
       .catch((error)=>console.log(error))
   })
   .then(()=> {
-    client.query('CREATE TABLE styles (id INT PRIMARY KEY, "default" BOOL, name TEXT, original_price TEXT, sale_price TEXT, product_id INT, FOREIGN KEY (product_id) REFERENCES product(id))')
+    client.query('CREATE TABLE styles (id INT PRIMARY KEY, productId INT, name TEXT, sale_price INT, original_price INT, default_style INT, FOREIGN KEY (productId) REFERENCES product(id))')
     .then(()=>console.log('Styles Table Created'))
       .catch((error)=>console.log(error))
   })
   .then(()=> {
-    client.query('CREATE TABLE skus (id INT PRIMARY KEY, styles_id INT, quantity INT, size REAL, FOREIGN KEY (styles_id) REFERENCES styles(id))')
+    client.query('CREATE TABLE skus (id INT PRIMARY KEY, styleId INT, size TEXT, quantity INT,  FOREIGN KEY (styleId) REFERENCES styles(id))')
     .then(()=>console.log('Skus Table Created'))
       .catch((error)=>console.log(error))
   })
   .then(()=> {
-    client.query('CREATE TABLE related (product_id INT, related_ids INT[], FOREIGN KEY (product_id) REFERENCES product(id))')
+    client.query('CREATE TABLE related (id INT PRIMARY KEY, current_product_id INT, related_product_id INT)')
     .then(()=>console.log('Related Table Created'))
       .catch((error)=>console.log(error))
   })
   .then(()=> {
-    client.query('CREATE TABLE photos (id INT PRIMARY KEY, styleId INT, thumbnail_url TEXT, url TEXT, FOREIGN KEY (styleId) REFERENCES styles(id))')
+    client.query('CREATE TABLE photos (id INT PRIMARY KEY, styleId INT, url TEXT, thumbnail_url TEXT, FOREIGN KEY (styleId) REFERENCES styles(id))')
     .then(()=>console.log('Photos Table Created'))
+      .catch((error)=>console.log(error))
+  })
+  .then(()=>{
+    client.query('CREATE TABLE cart (id INT PRIMARY KEY, user_session INT, product_id INT, active INT, FOREIGN KEY (product_id) REFERENCES product(id))')
+    .then(()=>console.log('Cart Table Created'))
       .catch((error)=>console.log(error))
       .then(()=>client.end())
   })
