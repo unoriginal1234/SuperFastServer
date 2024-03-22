@@ -1,7 +1,14 @@
-// will have to require models
+const models = require('../models')
 
 module.exports = {
   get: function(req, res) {
-    res.send('Hello related world')
+    models.related.get(req.params.product_id, (err, result) => {
+      if (err) {
+        console.log(err)
+        res.status(501).send()
+      } else {
+        res.status(200).send(result)
+      }
+    })
   }
 }

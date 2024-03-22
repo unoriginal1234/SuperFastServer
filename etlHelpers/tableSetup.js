@@ -84,7 +84,7 @@ client.connect()
       .catch((error)=>console.log(error))
   })
   .then(()=>{
-    client.query('CREATE TABLE cart (id INT PRIMARY KEY, user_session INT, product_id INT, active INT, FOREIGN KEY (product_id) REFERENCES product(id))')
+    client.query('CREATE TABLE cart (sku_id INT, count INT)')
     .then(()=>console.log('Cart Table Created'))
       .catch((error)=>console.log(error))
       .then(()=>client.end())

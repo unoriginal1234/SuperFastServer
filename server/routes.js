@@ -7,8 +7,10 @@ router.get('/products/:product_id', controller.products.getById)
 
 router.get('/cart', controller.cart.get)
 
-router.get('/related', controller.related.get)
+router.post('/cart', controller.cart.post)
 
-router.get('/product/:product_id/styles', controller.styles.get)
+router.get('/products/:product_id/related', controller.related.get)
+
+router.get('/products/:product_id/styles', controller.styles.get)
 
 module.exports = router;
