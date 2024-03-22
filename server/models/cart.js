@@ -27,8 +27,10 @@ module.exports = {
         client.query(query, (err, result) => {
           if (err) {
             callback(err)
+
           } else {
             callback(null, 'Cart successfully updated')
+
           }
         })
       })
