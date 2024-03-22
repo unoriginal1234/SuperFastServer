@@ -3,9 +3,9 @@ const path = require('path');
 const { Pool, Client } = require('pg');
 const copyFrom = require('pg-copy-streams').from;
 
-var inputFile = path.join(__dirname, '../data/imported/photos.csv');
+let inputFile = path.join(__dirname, '../data/imported/photos.csv');
 //var inputFile = path.join(__dirname, './data/cleaned/cleanStyles.csv');
-var table = 'photos';
+let table = 'photos';
 // Connect to the database
 
 const client = new Client({
@@ -17,8 +17,8 @@ const client = new Client({
 });
 
 client.connect()
-var stream = client.query(copyFrom(`COPY ${table} FROM STDIN WITH (FORMAT csv, HEADER)`))
-var fileStream = fs.createReadStream(inputFile)
+let stream = client.query(copyFrom(`COPY ${table} FROM STDIN WITH (FORMAT csv, HEADER)`))
+let fileStream = fs.createReadStream(inputFile)
 
 fileStream.on('error', (error) =>{
   console.log(`Error in reading file: ${error}`)

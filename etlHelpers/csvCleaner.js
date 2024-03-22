@@ -14,8 +14,8 @@ const csvStringifier = createCsvStringifier({
   ],
 });
 
-let readStream = fs.createReadStream("./data/imported/styles.csv");
-let writeStream = fs.createWriteStream("./data/cleaned/cleanStyles.csv")
+let readStream = fs.createReadStream("../data/imported/styles.csv");
+let writeStream = fs.createWriteStream("../data/cleaned/cleanStyles.csv")
 
 class CSVCleaner extends Transform {
   constructor(options) {
@@ -39,8 +39,6 @@ class CSVCleaner extends Transform {
     next();
   }
 }
-
-
 
 const transformer = new CSVCleaner({ writableObjectMode: true });
 
