@@ -5,8 +5,8 @@ const client = new Pool({
   user: process.env.USER,
   password: process.env.PW,
   host: process.env.HOST,
-  port: process.env.PORT,
-  database: process.env.DB_PORT,
+  port: process.env.DB_PORT,
+  database: process.env.DB,
   // idleTimeoutMillis: 30000,
   // connectionTimeoutMillis: 2000,
 });
