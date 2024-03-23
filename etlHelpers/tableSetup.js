@@ -1,12 +1,12 @@
 require('dotenv').config()
 const { Client } = require('pg');
 
-const client = new Pool({
+const client = new Client({
   user: process.env.USER,
   password: process.env.PW,
   host: process.env.HOST,
-  port: process.env.PORT,
-  database: process.env.DB_PORT,
+  port: process.env.DB_PORT,
+  database: process.env.DB,
   // idleTimeoutMillis: 30000,
   // connectionTimeoutMillis: 2000,
 });
