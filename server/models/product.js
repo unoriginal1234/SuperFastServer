@@ -15,8 +15,6 @@ module.exports = {
 
     client.connect()
       .then(() => {
-        console.log('Connected to PostgreSQL database');
-
         client.query(query, (err, result) => {
           if (err) {
             callback(err);
