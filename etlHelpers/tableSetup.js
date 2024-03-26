@@ -7,6 +7,7 @@ const client = new Client({
   host: process.env.HOST,
   port: process.env.DB_PORT,
   database: process.env.DB,
+  ssl: false
   // idleTimeoutMillis: 30000,
   // connectionTimeoutMillis: 2000,
 });
