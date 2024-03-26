@@ -1,7 +1,8 @@
-const client = require('../../db')
+const createClient = require('../../db').createClient
 
 module.exports = {
   get: (product_id, callback) => {
+    let client = createClient();
     let query = {
       text: 'SELECT related_product_id FROM related WHERE current_product_id = $1',
       values: [product_id]
@@ -16,6 +17,7 @@ module.exports = {
               return rp.related_product_id
             })
             callback(null, newArr)
+            client.end()
           }
         })
       })

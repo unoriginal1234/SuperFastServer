@@ -1,7 +1,9 @@
-client = require('../../db')
+const createClient = require('../../db').createClient
 
 module.exports = {
   getAll: (page, count, callback) => {
+
+    let client = createClient();
 
     let subset = page || 1;
     let limit = count || 5;
@@ -20,6 +22,7 @@ module.exports = {
             callback(err);
           } else {
             callback(null, result.rows);
+            client.end()
           }
         });
       })
@@ -29,6 +32,8 @@ module.exports = {
     },
 
     getOne: (id, callback) => {
+      let client = createClient();
+
       let query1 = {
         text: 'SELECT feature, value FROM features WHERE product_id = $1',
         values: [id]
@@ -47,6 +52,7 @@ module.exports = {
               } else {
                 result.rows[0]['features'] = features.rows
                 callback(null, result.rows[0])
+                client.end()
               }
             })
           })
