@@ -8,6 +8,7 @@ const client = new Pool({
   port: process.env.DB_PORT,
   database: process.env.DB,
   idleTimeoutMillis: 0,
+  max: 1600,
   // connectionTimeoutMillis: 2000,
 });
 
