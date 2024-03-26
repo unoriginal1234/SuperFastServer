@@ -1,15 +1,17 @@
 require('dotenv').config()
-const { Pool } = require('pg');
+const { Client } = require('pg');
 
-const client = new Pool({
-  user: process.env.USER,
-  password: process.env.PW,
-  host: process.env.HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB,
-  idleTimeoutMillis: 0,
-  max: 500,
-  // connectionTimeoutMillis: 2000,
-});
+function createClient() {
+  return new Client({
+    user: process.env.USER,
+    //password: process.env.PW,
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB,
+    // idleTimeoutMillis: 0,
+    // max: 500,
+    // connectionTimeoutMillis: 2000,
+  });
+}
 
-module.exports = client;
+module.exports.createClient = createClient;

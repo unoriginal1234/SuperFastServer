@@ -1,8 +1,9 @@
-const client = require('../../db')
+const createClient = require('../../db').createClient
 const styleFilter = require('../helpers/styleFilter.js').styleFilter
 
 module.exports = {
   get: (productId, callback) => {
+    let client = createClient()
     let query1 = {
       text: 'SELECT * FROM styles WHERE productid = $1',
       values: [productId]
@@ -34,6 +35,7 @@ module.exports = {
                     let skus = result.rows;
                     styleFilter(styles, photos, skus)
                     callback(null, styles)
+                    client.end()
                   }
                 })
               }
