@@ -1,15 +1,15 @@
 const createClient = require('../../db').createClient;
 const styleFilter = require('../helpers/styleFilter.js').styleFilter;
-const NodeCache = require('node-cache');
-const myCache = new NodeCache({stdTTL: 15000});
+// const NodeCache = require('node-cache');
+// const myCache = new NodeCache({stdTTL: 15000});
 
 module.exports = {
   get: (productId, callback) => {
-    value = myCache.get(productId);
+    // value = myCache.get(productId);
 
-    if(value) {
-      callback(null, value)
-    } else {
+    // if(value) {
+    //   callback(null, value)
+    // } else {
       let client = createClient()
       let query1 = {
         text: 'SELECT * FROM styles WHERE productid = $1',
@@ -42,7 +42,7 @@ module.exports = {
                       let skus = result.rows;
                       styleFilter(styles, photos, skus)
                       callback(null, styles)
-                      myCache.set(productId, styles)
+                      // myCache.set(productId, styles)
                       client.end()
                     }
                   })
@@ -51,7 +51,8 @@ module.exports = {
             }
           })
         })
+        // .then(()=> client.end())
         .catch((error)=> console.log('Error connecting to database'))
-    }
+    //}
   }
 }

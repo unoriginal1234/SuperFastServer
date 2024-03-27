@@ -1,6 +1,6 @@
 const createClient = require('../../db').createClient
-const NodeCache = require('node-cache')
-const myCache = new NodeCache({stdTTL: 15000});
+// const NodeCache = require('node-cache')
+// const myCache = new NodeCache({stdTTL: 15000});
 
 module.exports = {
   getAll: (page, count, callback) => {
@@ -28,6 +28,7 @@ module.exports = {
           }
         });
       })
+      // .then(()=>client.end())
       .catch((err) => {
         console.error('Error connecting to PostgreSQL database', err);
       });
@@ -35,11 +36,11 @@ module.exports = {
 
     getOne: (id, callback) => {
       // check to see if it's in the cache
-      value = myCache.get(id);
+      // value = myCache.get(id);
 
-      if (value) {
-        callback(null, value);
-      } else {
+      // if (value) {
+      //   callback(null, value);
+      // } else {
         let client = createClient();
 
         let query1 = {
@@ -61,17 +62,17 @@ module.exports = {
                 } else {
                   result.rows[0]['features'] = features.rows
                   callback(null, result.rows[0])
-                  myCache.set(id, result.rows[0])
+                  // myCache.set(id, result.rows[0])
                   client.end()
                 }
               })
             })
             .catch((err) => callback(err))
           })
+          //.then(()=> client.end())
           .catch((err) => {
             console.log('Error connecting to database', err)
           })
       }
-
-    }
+    //}
   }
